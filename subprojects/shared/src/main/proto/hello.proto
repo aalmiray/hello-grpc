@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package org.kordamp.grpc;
+
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "org.kordamp.grpc.demo";
+option java_outer_classname = "HelloProto";
+option objc_class_prefix = "JT";
+
+service HelloService {
+    rpc helloUnary (HelloRequest) returns (HelloResponse);
+
+    rpc helloServerStream (HelloRequest) returns (stream HelloResponse);
+
+    rpc helloClientStream (stream HelloRequest) returns (HelloResponse);
+
+    rpc helloBidirectional (stream HelloRequest) returns (stream HelloResponse);
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloResponse {
+    string reply = 1;
+}

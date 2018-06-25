@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.5'
+    }
+}
+
+apply plugin: 'com.google.protobuf'
+
+dependencies {
+    compile "io.grpc:grpc-netty:${grpcVersion}"
+    compile "io.grpc:grpc-protobuf:${grpcVersion}"
+    compile "io.grpc:grpc-stub:${grpcVersion}"
+    compile("com.google.protobuf:protobuf-java-util:${protobufVersion}") {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+    compile "com.google.guava:guava:$guavaVersion"
+}
+
+idea {
+    module {
+        generatedSourceDirs += file("${buildDir}/generated/main/java")
+        generatedSourceDirs += file("${buildDir}/generated/main/grpc")
+    }
+}
+
+protobuf {
+    generatedFilesBaseDir = file("${buildDir}/generated")
+
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {
+                outputSubDir = 'grpc'
+            }
+        }
+    }
+}

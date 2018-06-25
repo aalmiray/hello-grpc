@@ -1,0 +1,10 @@
+dependencies {
+    compile project(':shared')
+}
+
+idea {
+    module {
+        generatedSourceDirs += project(':shared').file("${buildDir}/generated/main/java")
+        generatedSourceDirs += project(':shared').file("${buildDir}/generated/main/grpc")
+    }
+}
