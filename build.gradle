@@ -18,8 +18,6 @@
  */
 
 plugins {
-
-    plugins {
     id 'com.github.ben-manes.versions' version '0.20.0' apply false
     id 'com.github.hierynomus.license' version '0.14.0' apply false
 }
@@ -54,8 +52,8 @@ allprojects {
             java = 'SLASHSTAR_STYLE'
             fxml = 'XML_STYLE'
         }
-        ext.year    = '018'
-        ext.author  = 'Andres Almiray'
+        ext.year = '2018'
+        ext.author = 'Andres Almiray'
         ext.project = 'Java Trove Examples'
     }
 }
