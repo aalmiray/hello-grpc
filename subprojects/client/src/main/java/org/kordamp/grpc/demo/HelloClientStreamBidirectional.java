@@ -1,13 +1,11 @@
 package org.kordamp.grpc.demo;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 
-public class HelloClientStreamBidirectional {
+public class HelloClientStreamBidirectional extends AbstractAsyncHelloClient {
     public static void main(String[] args) throws Exception {
         HelloClientStreamBidirectional client = new HelloClientStreamBidirectional();
-        client.sayHello("Guadalajara");
+        client.sayHello("World");
         Thread.sleep(1000);
     }
 
@@ -30,22 +28,8 @@ public class HelloClientStreamBidirectional {
         });
 
         for (int i = 0; i < 5; i++) {
-            HelloRequest request = HelloRequest.newBuilder()
-                .setName(input + " (" + i + ")")
-                .build();
-            toServer.onNext(request);
+            toServer.onNext(asRequest(input + " (" + i + ")"));
         }
         toServer.onCompleted();
-    }
-
-    private final ManagedChannel channel;
-    private final HelloServiceGrpc.HelloServiceStub asyncStub;
-
-    private HelloClientStreamBidirectional() {
-        channel = ManagedChannelBuilder.forAddress("localhost", 4567)
-            .usePlaintext()
-            .build();
-
-        asyncStub = HelloServiceGrpc.newStub(channel);
     }
 }

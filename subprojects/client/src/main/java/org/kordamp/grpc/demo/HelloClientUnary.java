@@ -6,7 +6,7 @@ import io.grpc.ManagedChannelBuilder;
 public class HelloClientUnary {
     public static void main(String[] args) {
         HelloClientUnary client = new HelloClientUnary();
-        System.out.println(client.sayHello("Guadalajara"));
+        System.out.println(client.sayHello("World"));
     }
 
     private String sayHello(String input) {

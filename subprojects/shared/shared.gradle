@@ -1,30 +1,23 @@
 buildscript {
     repositories {
-        jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
 
     dependencies {
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.5'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
     }
 }
 
 apply plugin: 'com.google.protobuf'
 
 dependencies {
-    compile "io.grpc:grpc-netty:${grpcVersion}"
-    compile "io.grpc:grpc-protobuf:${grpcVersion}"
     compile "io.grpc:grpc-stub:${grpcVersion}"
-    compile("com.google.protobuf:protobuf-java-util:${protobufVersion}") {
-        exclude group: 'com.google.guava', module: 'guava'
-    }
+    compile "io.grpc:grpc-protobuf:${grpcVersion}"
+    compile "io.grpc:grpc-netty:${grpcVersion}"
+    compile "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    compile "com.salesforce.servicelibs:rxgrpc-stub:${rxgrpcVersion}"
+    compile "com.google.protobuf:protobuf-java:${protobufVersion}"
     compile "com.google.guava:guava:$guavaVersion"
-}
-
-idea {
-    module {
-        generatedSourceDirs += file("${buildDir}/generated/main/java")
-        generatedSourceDirs += file("${buildDir}/generated/main/grpc")
-    }
 }
 
 protobuf {
@@ -37,12 +30,22 @@ protobuf {
         grpc {
             artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
         }
+        rxgrpc {
+            artifact = "com.salesforce.servicelibs:rxgrpc:${rxgrpcVersion}:jdk8@jar"
+        }
     }
     generateProtoTasks {
-        all()*.plugins {
-            grpc {
-                outputSubDir = 'grpc'
-            }
+        ofSourceSet('main')*.plugins {->
+            grpc { }
+            rxgrpc { }
         }
+    }
+}
+
+idea {
+    module {
+        generatedSourceDirs += file("${buildDir}/generated/main/java")
+        generatedSourceDirs += file("${buildDir}/generated/main/rxgrpc")
+        generatedSourceDirs += file("${buildDir}/generated/main/grpc")
     }
 }
