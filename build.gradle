@@ -1,10 +1,33 @@
+/*
+ * Copyright 2018 Andres Almiray
+ *
+ * This file is part of Java Trove Examples
+ *
+ * Java Trove Examples is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Java Trove Examples is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Java Trove Examples. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 plugins {
+
+    plugins {
     id 'com.github.ben-manes.versions' version '0.20.0' apply false
+    id 'com.github.hierynomus.license' version '0.14.0' apply false
 }
 
 allprojects {
     apply plugin: 'idea'
     apply plugin: 'com.github.ben-manes.versions'
+    apply plugin: 'com.github.hierynomus.license'
 
     repositories {
         mavenCentral()
@@ -21,6 +44,19 @@ allprojects {
                 }
             }
         }
+    }
+
+    license {
+        header = rootProject.file('gradle/HEADER')
+        strictCheck = true
+        ignoreFailures = true
+        mapping {
+            java = 'SLASHSTAR_STYLE'
+            fxml = 'XML_STYLE'
+        }
+        ext.year    = '018'
+        ext.author  = 'Andres Almiray'
+        ext.project = 'Java Trove Examples'
     }
 }
 
