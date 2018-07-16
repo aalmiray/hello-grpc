@@ -1,13 +1,10 @@
 syntax = "proto3";
 
-package org.kordamp.grpc;
+package org.kordamp.grpc.demo;
 
 import "google/protobuf/empty.proto";
 
 option java_multiple_files = true;
-option java_package = "org.kordamp.grpc.demo";
-option java_outer_classname = "HelloProto";
-option objc_class_prefix = "JT";
 
 service HelloService {
     rpc helloUnary (HelloRequest) returns (HelloResponse);

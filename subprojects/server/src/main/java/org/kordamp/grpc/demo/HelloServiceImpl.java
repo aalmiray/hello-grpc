@@ -30,10 +30,7 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
     @Override
     public void helloUnary(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
         doWithObserver(responseObserver, observer -> {
-            HelloResponse response = HelloResponse.newBuilder()
-                .setReply("Hello " + request.getName())
-                .build();
-            observer.onNext(response);
+            observer.onNext(asResponse("Hello " + request.getName()));
         });
     }
 
@@ -41,10 +38,7 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
     public void helloServerStream(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
         doWithObserver(responseObserver, observer -> {
             for (int i = 0; i < 5; i++) {
-                HelloResponse response = HelloResponse.newBuilder()
-                    .setReply("(" + i + ") Hello " + request.getName())
-                    .build();
-                observer.onNext(response);
+                observer.onNext(asResponse("(" + i + ") Hello " + request.getName()));
             }
         });
     }
@@ -65,10 +59,7 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
 
             @Override
             public void onCompleted() {
-                HelloResponse response = HelloResponse.newBuilder()
-                    .setReply("Hello " + requests.stream().collect(Collectors.joining(", ")))
-                    .build();
-                responseObserver.onNext(response);
+                responseObserver.onNext(asResponse("Hello " + requests.stream().collect(Collectors.joining(", "))));
                 responseObserver.onCompleted();
             }
         };
@@ -79,10 +70,7 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
         return new StreamObserver<HelloRequest>() {
             @Override
             public void onNext(HelloRequest request) {
-                HelloResponse response = HelloResponse.newBuilder()
-                    .setReply("Hello " + request.getName())
-                    .build();
-                responseObserver.onNext(response);
+                responseObserver.onNext(asResponse("Hello " + request.getName()));
             }
 
             @Override
@@ -95,6 +83,12 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
                 responseObserver.onCompleted();
             }
         };
+    }
+
+    private static HelloResponse asResponse(String s) {
+        return HelloResponse.newBuilder()
+            .setReply(s)
+            .build();
     }
 
     private <T> void doWithObserver(@Nonnull StreamObserver<T> observer, @Nonnull Consumer<StreamObserver<T>> consumer) {
