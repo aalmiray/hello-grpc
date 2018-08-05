@@ -29,7 +29,7 @@ public class RxHelloServer {
     }
 
     private RxHelloServer() {
-        server = NettyServerBuilder.forPort(4567)
+        server = NettyServerBuilder.forPort(5678)
             .addService(new RxHelloServiceImpl())
             .build();
     }

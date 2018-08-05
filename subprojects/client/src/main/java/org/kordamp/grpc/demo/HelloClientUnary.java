@@ -37,7 +37,7 @@ public class HelloClientUnary {
     private final HelloServiceGrpc.HelloServiceBlockingStub blockingStub;
 
     private HelloClientUnary() {
-        channel = ManagedChannelBuilder.forAddress("localhost", 4567)
+        channel = ManagedChannelBuilder.forAddress("localhost", 5678)
             .usePlaintext()
             .build();
 

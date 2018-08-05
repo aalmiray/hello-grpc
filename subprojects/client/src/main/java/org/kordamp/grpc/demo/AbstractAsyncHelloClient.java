@@ -32,7 +32,7 @@ public abstract class AbstractAsyncHelloClient {
     protected final HelloServiceGrpc.HelloServiceStub asyncStub;
 
     protected AbstractAsyncHelloClient() {
-        channel = ManagedChannelBuilder.forAddress("localhost", 4567)
+        channel = ManagedChannelBuilder.forAddress("localhost", 5678)
             .usePlaintext()
             .build();
 

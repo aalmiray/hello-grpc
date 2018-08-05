@@ -29,7 +29,7 @@ public class HelloServer {
     }
 
     private HelloServer() {
-        server = NettyServerBuilder.forPort(4567)
+        server = NettyServerBuilder.forPort(5678)
             .addService(new HelloServiceImpl())
             .build();
     }
