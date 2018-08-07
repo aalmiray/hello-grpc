@@ -33,7 +33,7 @@ public class RxHelloClientClientStream extends AbstractRxHelloClient {
         Flowable<HelloRequest> inputs = Flowable.range(1, 5)
             .map(i -> asRequest(input + " (" + i + ")"));
 
-        stub.helloClientStream(inputs)
+        inputs.as(stub::helloClientStream)
             .doOnError(Throwable::printStackTrace)
             .doAfterTerminate(() -> System.out.println("DONE"))
             .map(HelloResponse::getReply)

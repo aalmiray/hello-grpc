@@ -18,6 +18,7 @@
  */
 package org.kordamp.rxgrpc.demo;
 
+import io.reactivex.Single;
 import org.kordamp.grpc.demo.HelloResponse;
 
 public class RxHelloClientServerStream extends AbstractRxHelloClient {
@@ -28,7 +29,8 @@ public class RxHelloClientServerStream extends AbstractRxHelloClient {
     }
 
     private void sayHello(String input) {
-        stub.helloServerStream(asRequest(input))
+        Single.just(asRequest(input))
+            .as(stub::helloServerStream)
             .doOnError(Throwable::printStackTrace)
             .doOnComplete(() -> System.out.println("DONE"))
             .map(HelloResponse::getReply)

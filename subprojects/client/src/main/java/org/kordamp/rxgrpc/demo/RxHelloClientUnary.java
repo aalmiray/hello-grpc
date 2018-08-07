@@ -18,6 +18,7 @@
  */
 package org.kordamp.rxgrpc.demo;
 
+import io.reactivex.Single;
 import org.kordamp.grpc.demo.HelloResponse;
 
 public class RxHelloClientUnary extends AbstractRxHelloClient {
@@ -28,7 +29,7 @@ public class RxHelloClientUnary extends AbstractRxHelloClient {
     }
 
     private void sayHello(String input) {
-        stub.helloUnary(asRequest(input))
+        Single.just(asRequest(input)).compose(stub::helloUnary)
             .map(HelloResponse::getReply)
             .subscribe(System.out::println);
     }

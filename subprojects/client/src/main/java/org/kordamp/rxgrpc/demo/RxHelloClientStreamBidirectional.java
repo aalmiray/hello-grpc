@@ -33,7 +33,7 @@ public class RxHelloClientStreamBidirectional extends AbstractRxHelloClient {
         Flowable<HelloRequest> inputs = Flowable.range(1, 5)
             .map(i -> asRequest(input + " (" + i + ")"));
 
-        stub.helloBidirectional(inputs)
+        inputs.compose(stub::helloBidirectional)
             .doOnError(Throwable::printStackTrace)
             .doOnComplete(() -> System.out.println("DONE"))
             .map(HelloResponse::getReply)
