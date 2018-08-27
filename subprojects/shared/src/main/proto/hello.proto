@@ -1,9 +1,6 @@
 syntax = "proto3";
 
 package org.kordamp.grpc.demo;
-
-import "google/protobuf/empty.proto";
-
 option java_multiple_files = true;
 
 service HelloService {
