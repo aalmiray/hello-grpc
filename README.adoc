@@ -1,6 +1,8 @@
 = gRPC Examples
 
 image:https://img.shields.io/badge/donations-Patreon-f96854.svg[link="https://www.patreon.com/user?u=6609318"]
+image:https://api.dependabot.com/badges/status?host=github&repo=aalmiray/hello-grpc["Dependabot Status"]
+image:https://img.shields.io/badge/license-GPLv3-blue.svg["GPL", link="https://www.gnu.org/licenses/gpl-3.0.en.html"]
 
 == License
 
