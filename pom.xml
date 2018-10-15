@@ -42,7 +42,7 @@
         <rxjava.version>2.2.2</rxjava.version>
         <guava.version>26.0-jre</guava.version>
 
-        <plugin.os.maven.version>1.6.0</plugin.os.maven.version>
+        <plugin.os.maven.version>1.6.1</plugin.os.maven.version>
         <plugin.protobuf.maven.version>0.6.1</plugin.protobuf.maven.version>
     </properties>
 </project>
