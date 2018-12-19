@@ -36,11 +36,11 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <grpc.version>1.15.0</grpc.version>
+        <grpc.version>1.17.1</grpc.version>
         <protoc.version>3.6.1</protoc.version>
         <rxgrpc.version>0.9.0</rxgrpc.version>
-        <rxjava.version>2.2.2</rxjava.version>
-        <guava.version>26.0-jre</guava.version>
+        <rxjava.version>2.2.4</rxjava.version>
+        <guava.version>27.0.1-jre</guava.version>
 
         <plugin.os.maven.version>1.6.0</plugin.os.maven.version>
         <plugin.protobuf.maven.version>0.6.1</plugin.protobuf.maven.version>
