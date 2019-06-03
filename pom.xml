@@ -39,7 +39,7 @@
         <grpc.version>1.17.1</grpc.version>
         <protoc.version>3.6.1</protoc.version>
         <rxgrpc.version>0.9.0</rxgrpc.version>
-        <rxjava.version>2.2.4</rxjava.version>
+        <rxjava.version>2.2.9</rxjava.version>
         <guava.version>27.0.1-jre</guava.version>
 
         <plugin.os.maven.version>1.6.0</plugin.os.maven.version>
