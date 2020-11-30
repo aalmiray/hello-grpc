@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Andres Almiray
+ * Copyright 2018-2020 Andres Almiray
  *
  * This file is part of Java Trove Examples
  *
@@ -32,6 +32,7 @@ public class RxHelloServiceImpl extends RxHelloServiceGrpc.HelloServiceImplBase 
     @Override
     public Single<HelloResponse> helloUnary(Single<HelloRequest> request) {
         return doWithSingle(() -> request.map(HelloRequest::getName)
+            .doOnEvent((n, throwable) -> System.out.println("unary: " + n))
             .map(n -> "Hello " + n)
             .map(RxHelloServiceImpl::asResponse));
     }

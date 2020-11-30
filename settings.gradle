@@ -1,19 +1,50 @@
-File subdir = new File(rootDir, 'subprojects')
-subdir.eachDir { dir ->
-    File buildFile = new File(dir, "${dir.name}.gradle")
-    if (buildFile.exists()) {
-        include "subprojects/${dir.name}"
+/*
+ * Copyright 2018-2020 Andres Almiray
+ *
+ * This file is part of Java Trove Examples
+ *
+ * Java Trove Examples is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Java Trove Examples is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Java Trove Examples. If not, see <http://www.gnu.org/licenses/>.
+ */
+pluginManagement {
+    repositories {
+        jcenter()
+        gradlePluginPortal()
+    }
+    plugins {
+        id 'com.google.protobuf' version protobufPluginVersion
     }
 }
 
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.kordamp.gradle:kordamp-parentbuild:$kordampBuildVersion"
+    }
+}
+apply plugin: 'org.kordamp.gradle.kordamp-parentbuild'
+
 rootProject.name = 'hello-grpc'
-rootProject.children.each { project ->
-    int slash = project.name.indexOf('/')
-    String fileBaseName = project.name[(slash + 1)..-1]
-    String projectDirName = project.name
-    project.name = fileBaseName
-    project.projectDir = new File(settingsDir, projectDirName)
-    project.buildFileName = "${fileBaseName}.gradle"
-    assert project.projectDir.isDirectory()
-    assert project.buildFile.isFile()
+
+enforce {
+    rule(enforcer.rules.ForceDependencies) { r ->
+        r.dependencies.addAll "io.grpc:grpc-stub:$grpcVersion",
+            "io.reactivex.rxjava2:rxjava:$rxjavaVersion",
+            "com.google.protobuf:protobuf-java:$protobufVersion",
+            "com.google.guava:guava:$guavaVersion",
+            "org.reactivestreams:reactive-streams:1.0.3"
+    }
 }

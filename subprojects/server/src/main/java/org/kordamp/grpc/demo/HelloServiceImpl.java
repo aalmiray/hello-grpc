@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Andres Almiray
+ * Copyright 2018-2020 Andres Almiray
  *
  * This file is part of Java Trove Examples
  *
@@ -30,6 +30,7 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
     @Override
     public void helloUnary(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
         doWithObserver(responseObserver, observer -> {
+            System.out.println("unary: " + request.getName());
             observer.onNext(asResponse("Hello " + request.getName()));
         });
     }
@@ -85,12 +86,6 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
         };
     }
 
-    private static HelloResponse asResponse(String s) {
-        return HelloResponse.newBuilder()
-            .setReply(s)
-            .build();
-    }
-
     private <T> void doWithObserver(@Nonnull StreamObserver<T> observer, @Nonnull Consumer<StreamObserver<T>> consumer) {
         try {
             consumer.accept(observer);
@@ -98,5 +93,11 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
         } catch (Exception e) {
             observer.onError(e);
         }
+    }
+
+    private static HelloResponse asResponse(String s) {
+        return HelloResponse.newBuilder()
+            .setReply(s)
+            .build();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Andres Almiray
+ * Copyright 2018-2020 Andres Almiray
  *
  * This file is part of Java Trove Examples
  *
@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Java Trove Examples. If not, see <http://www.gnu.org/licenses/>.
  */
-
 dependencies {
     compile project(':shared')
 }

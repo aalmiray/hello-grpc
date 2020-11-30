@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Andres Almiray
+ * Copyright 2018-2020 Andres Almiray
  *
  * This file is part of Java Trove Examples
  *

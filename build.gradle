@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Andres Almiray
+ * Copyright 2018-2020 Andres Almiray
  *
  * This file is part of Java Trove Examples
  *
@@ -16,48 +16,44 @@
  * You should have received a copy of the GNU General Public License
  * along with Java Trove Examples. If not, see <http://www.gnu.org/licenses/>.
  */
+config {
+    info {
+        name          = rootProject.name
+        description   = 'Sample gRPC+RX project'
+        inceptionYear = '2018'
+        tags          = ['grpc', 'rxjava']
 
-plugins {
-    id 'com.github.ben-manes.versions' version '0.20.0' apply false
-    id 'com.github.hierynomus.license' version '0.15.0' apply false
+        specification  { enabled = false }
+    }
+
+    docs {
+        javadoc {
+            enabled = true
+            autoLinks {
+                enabled = false
+            }
+        }
+    }
 }
 
 allprojects {
     apply plugin: 'idea'
-    apply plugin: 'com.github.ben-manes.versions'
-    apply plugin: 'com.github.hierynomus.license'
+}
 
-    repositories {
-        mavenCentral()
-    }
+idea {
+    project {
+        jdkName project.sourceCompatibility
+        languageLevel project.sourceCompatibility
 
-    dependencyUpdates.resolutionStrategy = {
-        componentSelection { rules ->
-            rules.all { selection ->
-                boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'pr', 'atlassian'].any { qualifier ->
-                    selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
-                }
-                if (rejected) {
-                    selection.reject('Release candidate')
-                }
+        ipr {
+            withXml { provider ->
+                def node = provider.asNode()
+                node.component.find { it.'@name' == 'VcsDirectoryMappings' }?.mapping[0].'@vcs' = 'Git'
             }
         }
-    }
-
-    license {
-        header = rootProject.file('gradle/HEADER')
-        strictCheck = true
-        ignoreFailures = true
-        mapping {
-            java = 'SLASHSTAR_STYLE'
-            fxml = 'XML_STYLE'
-        }
-        ext.year = '2018'
-        ext.author = 'Andres Almiray'
-        ext.project = 'Java Trove Examples'
     }
 }
 
 subprojects {
-    apply plugin: 'java'
+    apply plugin: 'java-library'
 }
