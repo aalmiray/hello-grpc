@@ -51,7 +51,7 @@ public class RxHelloServiceImpl extends RxHelloServiceGrpc.HelloServiceImplBase 
         return doWithSingle(() -> request.map(HelloRequest::getName)
             .map(n -> "Hello " + n)
             .toList()
-            .map(l -> l.stream().collect(Collectors.joining(", ")))
+            .map(l -> String.join(", ", l))
             .map(RxHelloServiceImpl::asResponse));
     }
 

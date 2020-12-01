@@ -60,7 +60,7 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
 
             @Override
             public void onCompleted() {
-                responseObserver.onNext(asResponse("Hello " + requests.stream().collect(Collectors.joining(", "))));
+                responseObserver.onNext(asResponse("Hello " + String.join(", ", requests)));
                 responseObserver.onCompleted();
             }
         };
