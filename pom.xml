@@ -43,7 +43,7 @@
         <protoc.version>3.14.0</protoc.version>
         <rxgrpc.version>1.0.1</rxgrpc.version>
         <rxjava.version>2.2.20</rxjava.version>
-        <guava.version>30.0-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
 
         <plugin.os.maven.version>1.6.0</plugin.os.maven.version>
         <plugin.protobuf.maven.version>0.6.1</plugin.protobuf.maven.version>
